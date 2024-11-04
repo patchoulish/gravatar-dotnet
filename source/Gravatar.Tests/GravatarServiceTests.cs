@@ -21,12 +21,10 @@ namespace Gravatar
 		[TestInitialize]
 		public void Initialize()
 		{
-			var clientApiKey =
-				"1453:gk-AYv3DZ64ZINh4Vk9v9zKvcbJGjf1_c4Qr9RWLkEtnkjZMlqTN5GRoejqxYLYr";
-
 			this.gravatar =
 				new GravatarService(
-					clientApiKey);
+					Environment.GetEnvironmentVariable(
+						"GRAVATAR_API_KEY"));
 		}
 	}
 }
