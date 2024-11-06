@@ -6,8 +6,12 @@ using System.Text.Json.Serialization;
 namespace Gravatar
 {
 	/// <summary>
-	/// 
+	/// Represents the public contact information for a
+	/// <see cref="GravatarProfile"/>.
 	/// </summary>
+	/// <remarks>
+	/// Only provided in authenticated API requests.
+	/// </remarks>
 	public class GravatarContactDetails
 	{
 		/// <summary>

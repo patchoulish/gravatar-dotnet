@@ -114,22 +114,14 @@ namespace Gravatar
 			this.value = value;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public bool Equals(
 			GravatarAvatarDefault other) =>
 				Equals(
 					this,
 					other);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="obj"></param>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public override bool Equals(
 			object obj)
 		{
@@ -143,18 +135,12 @@ namespace Gravatar
 			return false;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public override int GetHashCode() =>
 			this.value
 				.GetHashCode();
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
+		/// <inheritdoc />
 		public override string ToString() =>
 			this.value;
 

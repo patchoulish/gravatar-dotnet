@@ -8,26 +8,31 @@ using System.Diagnostics.CodeAnalysis;
 namespace Gravatar
 {
 	/// <summary>
-	/// 
+	/// Represents a verified account associated with a
+	/// <see cref="GravatarProfile"/>.
 	/// </summary>
+	/// <remarks>
+	/// The number of verified accounts returned is limited
+	/// to a maximum of 4 in unauthenticated requests.
+	/// </remarks>
 	public class GravatarProfileAccount
 	{
 		/// <summary>
-		/// 
+		/// The name of the service.
 		/// </summary>
 		[JsonPropertyName(
 			"service_label")]
 		public string ServiceLabel { get; init; }
 
 		/// <summary>
-		/// 
+		/// The URL to the service’s icon.
 		/// </summary>
 		[JsonPropertyName(
 			"service_icon")]
 		public Uri ServiceIconUrl { get; init; }
 
 		/// <summary>
-		/// 
+		/// The URL to the user’s profile on the service.
 		/// </summary>
 		[JsonPropertyName(
 			"url")]
