@@ -1,6 +1,14 @@
 # Release History
 
 
+## 0.1.2 (2024-11-06)
+Minor feature release.
+
+### Features Added
+- Dependency Injection Extensions.
+- ASP.NET Core Extensions incl. Razor Tag Helpers.
+
+
 ## 0.1.1 (2024-11-04)
 A minor feature release.
 
