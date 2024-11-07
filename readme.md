@@ -54,8 +54,8 @@ If you've installed the appropriate extension library.
 ```csharp
 services.AddGravatarHttpClient(options =>
 {
-	options.BaseUrl = new Uri("https://kagi.com/api/v0/");
-	options.ApiKey = "YOUR_KAGI_API_KEY";
+	options.BaseUrl = new Uri("https://api.gravatar.com/v3/");
+	options.ApiKey = "YOUR_GRAVATAR_API_KEY";
 });
 ```
 2. Inject `IGravatarService` where needed:
