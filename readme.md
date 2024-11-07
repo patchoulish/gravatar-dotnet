@@ -25,7 +25,7 @@ dotnet add package gravatar-dotnet-aspnetcore
 ## Usage
 1. Obtain an API key from the [Gravatar Developer Dashboard](https://gravatar.com/developers/applications) (requires a Gravatar account and developer application).
 2. Pass the API key into a new instance of the `GravatarService` class or use a configured `HttpClient` if advanced configuration (e.g., proxies) is required.
-3. Use the methods available on `GravatarService` to interact with the Kagi API.
+3. Use the methods available on `GravatarService` to interact with the Gravatar API.
 
 ### Initialization
 The library can be initialized in three ways:
