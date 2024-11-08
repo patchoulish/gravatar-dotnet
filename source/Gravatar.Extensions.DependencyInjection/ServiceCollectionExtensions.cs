@@ -37,6 +37,10 @@ namespace Gravatar
 			var options =
 				new GravatarServiceOptions();
 
+			optionsCallback?
+				.Invoke(
+					options);
+
 			return services
 				.AddHttpClient<IGravatarService, GravatarService>(
 					GravatarHttpClientName,
