@@ -2,8 +2,6 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Gravatar
 {
@@ -41,8 +39,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"service_type")]
 		public string ServiceType { get; init; }
@@ -50,8 +47,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"is_hidden")]
 		public bool IsHidden { get; init; }

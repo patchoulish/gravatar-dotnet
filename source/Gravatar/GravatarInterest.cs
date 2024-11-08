@@ -2,23 +2,19 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Gravatar
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	[Experimental(
-		"GRAVATAR_UNDOCUMENTED")]
+	/// <remarks>This field is not documented.</remarks>
 	public class GravatarInterest
 	{
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"id")]
 		public int? Id { get; init; }
@@ -26,8 +22,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"name")]
 		public string Name { get; init; }

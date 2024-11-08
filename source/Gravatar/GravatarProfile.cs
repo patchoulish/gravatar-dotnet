@@ -4,8 +4,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Collections;
 using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Gravatar
 {
@@ -144,8 +142,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"timezone")]
 		public string TimeZone { get; init; }
@@ -153,8 +150,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"first_name")]
 		public string FirstName { get; init; }
@@ -162,8 +158,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"last_name")]
 		public string LastName { get; init; }
@@ -171,8 +166,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"is_organization")]
 		public bool? IsOrganization { get; init; }
@@ -180,8 +174,7 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
-		[Experimental(
-			"GRAVATAR_UNDOCUMENTED")]
+		/// <remarks>This field is not documented.</remarks>
 		[JsonPropertyName(
 			"background_color")]
 		public string BackgroundColor { get; init; }
