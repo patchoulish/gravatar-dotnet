@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<RunSettings>
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<GRAVATAR_API_KEY>YOUR_GRAVATAR_API_KEY</GRAVATAR_API_KEY>
+		</EnvironmentVariables>
+	</RunConfiguration>
+</RunSettings>
