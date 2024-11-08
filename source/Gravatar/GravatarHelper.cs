@@ -57,12 +57,13 @@ namespace Gravatar
 		public static byte[] GetEmailAddressHashBytes(
 			string address)
 		{
-			ArgumentException
-				.ThrowIfNullOrEmpty(
-					address,
-					nameof(address));
+			Guard.NotNullOrEmpty(
+				address,
+				nameof(address));
 
-			return MD5.HashData(
+			using var md5 = MD5.Create();
+
+			return md5.ComputeHash(
 				Encoding.UTF8.GetBytes(
 					address
 						.Trim()
@@ -87,10 +88,9 @@ namespace Gravatar
 		public static string GetEmailAddressHash(
 			string address)
 		{
-			ArgumentException
-				.ThrowIfNullOrEmpty(
-					address,
-					nameof(address));
+			Guard.NotNullOrEmpty(
+				address,
+				nameof(address));
 
 			var addressHashBytes =
 				GetEmailAddressHashBytes(
@@ -125,10 +125,9 @@ namespace Gravatar
 		public static Uri GetProfileUrl(
 			string address)
 		{
-			ArgumentException
-				.ThrowIfNullOrEmpty(
-					address,
-					nameof(address));
+			Guard.NotNullOrEmpty(
+				address,
+				nameof(address));
 
 			var addressHash =
 				GetEmailAddressHash(
@@ -176,10 +175,9 @@ namespace Gravatar
 			GravatarProfileQRCodeType? type = default,
 			GravatarProfileQRCodeVersion? version = default)
 		{
-			ArgumentException
-				.ThrowIfNullOrEmpty(
-					address,
-					nameof(address));
+			Guard.NotNullOrEmpty(
+				address,
+				nameof(address));
 
 			var addressHash =
 				GetEmailAddressHash(
@@ -196,10 +194,9 @@ namespace Gravatar
 
 			if (size.HasValue)
 			{
-				ArgumentOutOfRangeException
-					.ThrowIfNegativeOrZero(
-						size.Value,
-						nameof(size));
+				Guard.NotNegativeOrZero(
+					size.Value,
+					nameof(size));
 
 				urlQueryParams["s"] =
 					size.GetValueOrDefault();
@@ -271,10 +268,9 @@ namespace Gravatar
 			GravatarAvatarRating? rating = default,
 			bool? withFileExtension = default)
 		{
-			ArgumentException
-				.ThrowIfNullOrEmpty(
-					address,
-					nameof(address));
+			Guard.NotNullOrEmpty(
+				address,
+				nameof(address));
 
 			var addressHash =
 				GetEmailAddressHash(
@@ -293,10 +289,9 @@ namespace Gravatar
 
 			if (size.HasValue)
 			{
-				ArgumentOutOfRangeException
-					.ThrowIfNegativeOrZero(
-						size.Value,
-						nameof(size));
+				Guard.NotNegativeOrZero(
+					size.Value,
+					nameof(size));
 
 				urlQueryParams["s"] =
 					size.GetValueOrDefault();

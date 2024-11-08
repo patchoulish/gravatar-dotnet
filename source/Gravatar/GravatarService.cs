@@ -49,15 +49,13 @@ namespace Gravatar
 			Uri baseUrl,
 			string apiKey)
 		{
-			ArgumentNullException
-				.ThrowIfNull(
-					baseUrl,
-					nameof(baseUrl));
+			Guard.NotNull(
+				baseUrl,
+				nameof(baseUrl));
 
-			ArgumentException
-				.ThrowIfNullOrEmpty(
-					apiKey,
-					nameof(apiKey));
+			Guard.NotNullOrEmpty(
+				apiKey,
+				nameof(apiKey));
 
 			var client =
 				new HttpClient();
@@ -151,10 +149,9 @@ namespace Gravatar
 		public GravatarService(
 			HttpClient httpClient)
 		{
-			ArgumentNullException
-				.ThrowIfNull(
-					httpClient,
-					nameof(httpClient));
+			Guard.NotNull(
+				httpClient,
+				nameof(httpClient));
 
 			this.httpClient = httpClient;
 		}
@@ -169,10 +166,9 @@ namespace Gravatar
 			string hashOrIdentifier,
 			CancellationToken cancellationToken = default)
 		{
-			ArgumentException
-				.ThrowIfNullOrWhiteSpace(
-					hashOrIdentifier,
-					nameof(hashOrIdentifier));
+			Guard.NotNullOrWhiteSpace(
+				hashOrIdentifier,
+				nameof(hashOrIdentifier));
 
 			if (!TryCreateProfileUrl(
 				hashOrIdentifier,

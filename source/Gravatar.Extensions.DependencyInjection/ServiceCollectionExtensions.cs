@@ -30,10 +30,9 @@ namespace Gravatar
 			this IServiceCollection services,
 			Action<GravatarServiceOptions> optionsCallback = default)
 		{
-			ArgumentNullException
-				.ThrowIfNull(
-					services,
-					nameof(services));
+			Guard.NotNull(
+				services,
+				nameof(services));
 
 			var options =
 				new GravatarServiceOptions();

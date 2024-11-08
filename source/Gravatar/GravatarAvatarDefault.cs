@@ -75,6 +75,22 @@ namespace Gravatar
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="url"></param>
+		/// <returns></returns>
+		public static GravatarAvatarDefault FromUrl(
+			string url)
+		{
+			Guard.NotNullOrEmpty(
+				url,
+				nameof(url));
+
+			return new GravatarAvatarDefault(
+				Uri.EscapeDataString(url));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="valueA"></param>
 		/// <param name="valueB"></param>
 		/// <returns></returns>
@@ -83,23 +99,6 @@ namespace Gravatar
 			GravatarAvatarDefault valueB)
 		{
 			return valueA.value == valueB.value;
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="url"></param>
-		/// <returns></returns>
-		public static GravatarAvatarDefault FromUrl(
-			string url)
-		{
-			ArgumentNullException
-				.ThrowIfNullOrEmpty(
-					url,
-					nameof(url));
-
-			return new GravatarAvatarDefault(
-				Uri.EscapeDataString(url));
 		}
 
 		private readonly string value;
