@@ -1,42 +1,45 @@
 ﻿using System;
-using System.Runtime;
-using System.Runtime.Serialization;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Gravatar
 {
 	/// <summary>
 	/// 
 	/// </summary>
+	[JsonConverter(
+		typeof(JsonStringEnumConverter<GravatarAvatarRating>))]
 	public enum GravatarAvatarRating
 	{
 		/// <summary>
 		/// Suitable for display on all websites with any audience type.
 		/// </summary>
-		[EnumMember(
-			Value = "g")]
+		[JsonStringEnumMemberName(
+			"g")]
 		G,
 
 		/// <summary>
 		/// May contain rude gestures, provocatively dressed individuals,
 		/// the lesser swear words, or mild violence.
 		/// </summary>
-		[EnumMember(
-			Value = "pg")]
+		[JsonStringEnumMemberName(
+			"pg")]
 		PG,
 
 		/// <summary>
 		/// May contain such things as harsh profanity, intense violence,
 		/// nudity, or hard drug use.
 		/// </summary>
-		[EnumMember(
-			Value = "r")]
+		[JsonStringEnumMemberName(
+			"r")]
 		R,
 
 		/// <summary>
 		/// May contain sexual imagery or extremely disturbing violence.
 		/// </summary>
-		[EnumMember(
-			Value = "x")]
+		[JsonStringEnumMemberName(
+			"x")]
 		X
 	}
 }

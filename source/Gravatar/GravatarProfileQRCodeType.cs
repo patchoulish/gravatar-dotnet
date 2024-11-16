@@ -1,33 +1,36 @@
 ﻿using System;
-using System.Runtime;
-using System.Runtime.Serialization;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Gravatar
 {
 	/// <summary>
 	/// 
 	/// </summary>
+	[JsonConverter(
+		typeof(JsonStringEnumConverter<GravatarProfileQRCodeType>))]
 	public enum GravatarProfileQRCodeType
 	{
 		/// <summary>
 		/// No user avatar or Gravatar logo.
 		/// </summary>
-		[EnumMember(
-			Value = "default")]
+		[JsonStringEnumMemberName(
+			"default")]
 		None,
 
 		/// <summary>
 		/// The user's avatar.
 		/// </summary>
-		[EnumMember(
-			Value = "user")]
+		[JsonStringEnumMemberName(
+			"user")]
 		Avatar,
 
 		/// <summary>
 		/// The Gravatar logo.
 		/// </summary>
-		[EnumMember(
-			Value = "gravatar")]
+		[JsonStringEnumMemberName(
+			"gravatar")]
 		Logo,
 	}
 }

@@ -1,26 +1,29 @@
 ﻿using System;
-using System.Runtime;
-using System.Runtime.Serialization;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Gravatar
 {
 	/// <summary>
 	/// 
 	/// </summary>
+	[JsonConverter(
+		typeof(JsonStringEnumConverter<GravatarProfileQRCodeVersion>))]
 	public enum GravatarProfileQRCodeVersion
 	{
 		/// <summary>
 		/// A standard QR code.
 		/// </summary>
-		[EnumMember(
-			Value = "1")]
+		[JsonStringEnumMemberName(
+			"1")]
 		Standard,
 
 		/// <summary>
 		/// A modern "small dots" QR code.
 		/// </summary>
-		[EnumMember(
-			Value = "3")]
+		[JsonStringEnumMemberName(
+			"3")]
 		Modern,
 	}
 }

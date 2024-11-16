@@ -206,14 +206,14 @@ namespace Gravatar
 			{
 				urlQueryParams["type"] =
 					type.GetValueOrDefault()
-						.ToMemberValue();
+						.ToMemberName();
 			}
 
 			if (version.HasValue)
 			{
 				urlQueryParams["version"] =
 					version.GetValueOrDefault()
-						.ToMemberValue();
+						.ToMemberName();
 			}
 
 			url.Query =
@@ -315,7 +315,7 @@ namespace Gravatar
 			{
 				urlQueryParams["r"] =
 					rating.GetValueOrDefault()
-						.ToMemberValue();
+						.ToMemberName();
 			}
 
 			url.Query =
