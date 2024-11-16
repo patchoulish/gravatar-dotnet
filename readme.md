@@ -37,14 +37,20 @@ var gravatar = new GravatarService("YOUR_GRAVATAR_API_KEY");
 #### Advanced Initialization
 Use an existing `HttpClient`, ensuring that `BaseAddress` and an `Authorization` header have been set:
 ```csharp
-var httpClient = new HttpClient
+var httpClient = new HttpClient(
+	new GravatarDelegatingHandler()
+	{
+		InnerHandler = new HttpClientHandler()
+	},
+	disposeHandler: true)
 {
-    BaseAddress = new Uri("https://api.gravatar.com/v3/"),
-    Timeout = TimeSpan.FromSeconds(5)
+	BaseAddress = new Uri("https://api.gravatar.com/v3/"),
+	Timeout = TimeSpan.FromSeconds(5)
 };
 
-httpClient.DefaultRequestHeaders.Authorization =
-	new AuthenticationHeaderValue("Bearer", "YOUR_GRAVATAR_API_KEY");
+httpClient.DefaultRequestHeaders.Add(
+	$"Authorization",
+	$"Bearer YOUR_GRAVATAR_API_KEY");
 
 var gravatar = new GravatarService(httpClient);
 ```
