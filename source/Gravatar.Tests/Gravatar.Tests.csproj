@@ -21,5 +21,6 @@
 	<!-- Project reference(s) -->
 	<ItemGroup>
 		<ProjectReference Include="..\Gravatar\Gravatar.csproj" />
+		<ProjectReference Include="..\Gravatar.Extensions.DependencyInjection\Gravatar.Extensions.DependencyInjection.csproj" />
 	</ItemGroup>
 </Project>
