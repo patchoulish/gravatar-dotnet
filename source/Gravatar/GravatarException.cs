@@ -1,67 +1,124 @@
 ﻿using System;
 using System.Net;
+using System.Net.Http;
 
 namespace Gravatar
 {
 	/// <summary>
-	/// 
+	/// Represents the exception thrown by instances of the
+	/// <see cref="GravatarService"/> and <see cref="GravatarDelegatingHandler"/>
+	/// classes.
 	/// </summary>
 	public class GravatarException :
-		Exception
+		HttpRequestException
 	{
+#if NETSTANDARD
+
 		/// <summary>
-		/// 
+		/// Gets the HTTP status code for this exception, if any.
 		/// </summary>
 		public HttpStatusCode? StatusCode { get; private init; }
 
+#endif
+
 		/// <summary>
-		/// 
+		/// Initializes a new instance of the <see cref="GravatarException"/>
+		/// class.
 		/// </summary>
 		public GravatarException() :
-				this(
-					default)
+			this(
+				default)
 		{ }
 
 		/// <summary>
-		/// 
+		/// Initializes a new instance of the <see cref="GravatarException"/>
+		/// class with a specific message that describes the current exception.
 		/// </summary>
-		/// <param name="statusCode"></param>
+		/// <param name="message">
+		/// A message that describes the current exception.
+		/// </param>
 		public GravatarException(
-			HttpStatusCode statusCode) :
-				this(
-					statusCode,
-					default)
-		{ }
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="statusCode"></param>
-		/// <param name="message"></param>
-		public GravatarException(
-			HttpStatusCode statusCode,
 			string message) :
 				this(
-					statusCode,
 					message,
 					default)
 		{ }
 
 		/// <summary>
-		/// 
+		/// Initializes a new instance of the <see cref="GravatarException"/>
+		/// class with a specific message that describes the current exception
+		/// and an inner exception.
 		/// </summary>
-		/// <param name="statusCode"></param>
-		/// <param name="message"></param>
-		/// <param name="innerException"></param>
+		/// <param name="message">
+		/// A message that describes the current exception.
+		/// </param>
+		/// <param name="innerException">
+		/// The inner exception.
+		/// </param>
 		public GravatarException(
-			HttpStatusCode statusCode,
 			string message,
 			Exception innerException) :
-				base(
+				this(
 					message,
-					innerException)
+					innerException,
+					default)
+		{ }
+
+#if NETSTANDARD
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GravatarException"/>
+		/// class with a specific message that describes the current exception,
+		/// an inner exception, and an HTTP status code.
+		/// </summary>
+		/// <param name="message">
+		/// A message that describes the current exception.
+		/// </param>
+		/// <param name="innerException">
+		/// The inner exception.
+		/// </param>
+		/// <param name="statusCode">
+		/// The HTTP status code.
+		/// </param>
+		public GravatarException(
+			string message,
+			Exception innerException,
+			HttpStatusCode? statusCode) :
+			base(
+				message,
+				innerException)
 		{
 			StatusCode = statusCode;
 		}
+
+#endif
+
+#if NET
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GravatarException"/>
+		/// class with a specific message that describes the current exception,
+		/// an inner exception, and an HTTP status code.
+		/// </summary>
+		/// <param name="message">
+		/// A message that describes the current exception.
+		/// </param>
+		/// <param name="innerException">
+		/// The inner exception.
+		/// </param>
+		/// <param name="statusCode">
+		/// The HTTP status code.
+		/// </param>
+		public GravatarException(
+			string message,
+			Exception innerException,
+			HttpStatusCode? statusCode) :
+			base(
+				message,
+				innerException,
+				statusCode)
+		{ }
+
+#endif
 	}
 }

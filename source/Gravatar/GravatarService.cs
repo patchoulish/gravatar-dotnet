@@ -2,12 +2,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Globalization;
 
 namespace Gravatar
 {
@@ -18,25 +17,20 @@ namespace Gravatar
 		IGravatarService
 	{
 		/// <summary>
-		/// The default base URL for the Gravatar API.
-		/// </summary>
-		private const string DefaultBaseUrlValue =
-			"https://api.gravatar.com/v3/";
-
-		/// <summary>
 		/// Gets the default base URL for the Gravatar API.
 		/// </summary>
 		public static Uri DefaultBaseUrl { get; } =
 			new Uri(
-				DefaultBaseUrlValue);
+				"https://api.gravatar.com/v3/");
 
 		/// <summary>
-		/// 
+		/// The JSON serializer options for serializing and deserializing JSON data.
 		/// </summary>
-		private static JsonSerializerOptions JsonSerializerOptions { get; } =
+		internal static JsonSerializerOptions JsonSerializerOptions { get; } =
 			new JsonSerializerOptions()
 			{
-
+				DefaultIgnoreCondition = 
+					JsonIgnoreCondition.WhenWritingNull
 			};
 
 		/// <summary>
@@ -45,7 +39,7 @@ namespace Gravatar
 		/// <param name="baseUrl"></param>
 		/// <param name="apiKey"></param>
 		/// <returns></returns>
-		private static HttpClient CreateClient(
+		private static HttpClient CreateHttpClient(
 			Uri baseUrl,
 			string apiKey)
 		{
@@ -57,65 +51,26 @@ namespace Gravatar
 				apiKey,
 				nameof(apiKey));
 
-			var client =
-				new HttpClient();
+			var httpClient =
+				new HttpClient(
+					new GravatarDelegatingHandler()
+					{
+						InnerHandler =
+							new HttpClientHandler()
+					},
+					disposeHandler: true);
 
-			client.BaseAddress =
+			httpClient.BaseAddress =
 				baseUrl;
 
-			client.DefaultRequestHeaders.Authorization =
-				new AuthenticationHeaderValue(
-					"Bearer",
-					apiKey);
+			httpClient.DefaultRequestHeaders.Add(
+				$"Authorization",
+				$"Bearer {apiKey}");
 
-			return client;
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="response"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		/// <exception cref="GravatarException"></exception>
-		private static async Task<TResult> ProcessResponseAsync<TResult>(
-			HttpResponseMessage response,
-			CancellationToken cancellationToken = default)
-		{
-			if (response.StatusCode == HttpStatusCode.OK)
-			{
-				var result =
-					await response.Content
-						.ReadFromJsonAsync<TResult>(
-							JsonSerializerOptions,
-							cancellationToken);
-
-				return result;
-			}
-			else
-			{
-				throw new GravatarException(
-					response.StatusCode);
-			}
+			return httpClient;
 		}
 
 		private readonly HttpClient httpClient;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public Uri BaseUrl =>
-			this.httpClient
-				.BaseAddress;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public AuthenticationHeaderValue AuthorizationHeaderValue =>
-			this.httpClient
-				.DefaultRequestHeaders
-				.Authorization;
 
 		/// <summary>
 		/// 
@@ -137,7 +92,7 @@ namespace Gravatar
 			Uri baseUrl,
 			string apiKey) :
 				this(
-					CreateClient(
+					CreateHttpClient(
 						baseUrl,
 						apiKey))
 		{ }
@@ -156,12 +111,7 @@ namespace Gravatar
 			this.httpClient = httpClient;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="hashOrIdentifier"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
+		/// <inheritdoc/>
 		public async Task<GravatarProfile> GetProfileAsync(
 			string hashOrIdentifier,
 			CancellationToken cancellationToken = default)
@@ -170,40 +120,12 @@ namespace Gravatar
 				hashOrIdentifier,
 				nameof(hashOrIdentifier));
 
-			if (!TryCreateProfileUrl(
-				hashOrIdentifier,
-				out var requestUri))
-			{
-				throw new InvalidOperationException(
-					$"Failed to create a valid URL for the request.");
-			}
-
-			var response =
-				await this.httpClient
-					.GetAsync(
-						requestUri,
-						cancellationToken);
-
-			return await ProcessResponseAsync<GravatarProfile>(
-				response,
-				cancellationToken);
+			// GET the request then deserialize the response and return the result.
+			return await this.httpClient
+				.GetFromJsonAsync<GravatarProfile>(
+					$"profiles/{hashOrIdentifier}",
+					JsonSerializerOptions,
+					cancellationToken);
 		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="hashOrIdentifier"></param>
-		/// <param name="result"></param>
-		/// <returns></returns>
-		private bool TryCreateProfileUrl(
-			string hashOrIdentifier,
-			out Uri result) =>
-				Uri.TryCreate(
-					BaseUrl,
-					String.Format(
-						CultureInfo.InvariantCulture,
-						"profiles/{0}",
-						hashOrIdentifier),
-					out result);
 	}
 }

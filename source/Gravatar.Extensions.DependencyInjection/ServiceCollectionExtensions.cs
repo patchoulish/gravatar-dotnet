@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 using Microsoft;
 using Microsoft.Extensions;
@@ -45,6 +44,7 @@ namespace Gravatar
 					options);
 
 			return services
+				.AddTransient<GravatarDelegatingHandler>()
 				.AddHttpClient<IGravatarService, GravatarService>(
 					GravatarHttpClientName,
 					(httpClient) =>
@@ -57,12 +57,12 @@ namespace Gravatar
 						if (options.ApiKey != default)
 						{
 							// Configure the default request headers for the client.
-							httpClient.DefaultRequestHeaders.Authorization =
-								new AuthenticationHeaderValue(
-									"Bearer",
-									options.ApiKey);
+							httpClient.DefaultRequestHeaders.Add(
+								$"Authorization",
+								$"Bearer {options.ApiKey}");
 						}
-					});
+					})
+				.AddHttpMessageHandler<GravatarDelegatingHandler>();
 		}
 	}
 }
