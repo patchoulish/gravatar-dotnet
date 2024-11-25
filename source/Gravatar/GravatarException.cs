@@ -84,9 +84,9 @@ namespace Gravatar
 			string message,
 			Exception innerException,
 			HttpStatusCode? statusCode) :
-			base(
-				message,
-				innerException)
+				base(
+					message,
+					innerException)
 		{
 			StatusCode = statusCode;
 		}
@@ -113,10 +113,10 @@ namespace Gravatar
 			string message,
 			Exception innerException,
 			HttpStatusCode? statusCode) :
-			base(
-				message,
-				innerException,
-				statusCode)
+				base(
+					message,
+					innerException,
+					statusCode)
 		{ }
 
 #endif
